@@ -21,6 +21,7 @@ gunicorn = "*"
 whitenoise = "*"
 brotli = "*"
 decorator = "*"
+sphinx = "*"
 
 
 [requires]

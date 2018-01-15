@@ -66,4 +66,7 @@
     </LinkMapSettings>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6.3 virtualenv at C:\Users\Peter\.virtualenvs\FlaskBase-Ade7YhLX" project-jdk-type="Python SDK" />
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="2" />
+  </component>
 </project>

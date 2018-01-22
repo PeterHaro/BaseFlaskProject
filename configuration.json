@@ -7,6 +7,7 @@
   "announcement": {
     "en": "FlaskBase is in pre alpha version! Please see this<a href='https://github.com/PeterHaro/BaseFlaskProject'> GitHub repository</a> for more information."
   },
+  "app_name": "FlaskBase",
   "title_long": {
     "en": "FlaskBase :: Build your own flask-page",
     "no": "FlaskBase :: Bygg din egen flask-side"
@@ -76,7 +77,6 @@
       "announcement": "<div class=\"fixed-announcement\"><div class=\"announcement\"><div class=\"container\">{{__('announcement')}}</div></div></div>"
     },
     {
-
     }
   ]
 }

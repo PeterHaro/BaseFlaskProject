@@ -1,0 +1,29 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+
+
+[packages]
+
+flask = "*"
+flask-compress = "*"
+pytest = "*"
+flask-cache = "*"
+crayons = "*"
+maya = "*"
+gunicorn = "*"
+whitenoise = "*"
+brotli = "*"
+decorator = "*"
+sphinx = "*"
+
+
+[requires]
+
+python_version = "3.6"

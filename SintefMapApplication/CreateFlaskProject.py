@@ -47,7 +47,7 @@ class ProjectBuilder(object):
         if debug:
             print("============= Configuration File =============")
             pprint(self.configuration_file)
-        self.expander = Expander(configuration_file, root_directory="./FlaskBase/templates/",
+        self.expander = Expander(configuration_file, root_directory="./MapApplication/templates/",
                                  output_directory=os.path.join(self.output_directory, self.application_name) + "/templates")
 
     def modify_configuration_parameters(self):
@@ -55,15 +55,15 @@ class ProjectBuilder(object):
             currentValue = self.configuration_file[key]
             if isinstance(currentValue, dict):
                 for lang in currentValue:
-                    self.configuration_file[key][lang] = self.configuration_file[key][lang].replace("FlaskBase",
+                    self.configuration_file[key][lang] = self.configuration_file[key][lang].replace("MapApplication",
                                                                                                     self.application_name)
             elif isinstance(currentValue, list):
                 if isinstance(currentValue[0], dict):
                     continue
-                currentValue = [word.replace("FlaskBase", self.application_name) for word in currentValue]
+                currentValue = [word.replace("MapApplication", self.application_name) for word in currentValue]
                 self.configuration_file[key] = currentValue
             else:
-                self.configuration_file[key] = self.configuration_file[key].replace("FlaskBase", self.application_name)
+                self.configuration_file[key] = self.configuration_file[key].replace("MapApplication", self.application_name)
 
     def create_scss_file(self, path):
         with open(path, "w", encoding="utf-8") as outfile:
@@ -74,17 +74,17 @@ class ProjectBuilder(object):
         create_folder_if_not_exists(self.output_directory + "/docs")
         create_folder_if_not_exists(self.output_directory + "/tests")
         create_folder_if_not_exists(self.output_directory + "/" + self.application_name)
-        copy_tree("./FlaskBase", self.output_directory + "/" + self.application_name)
+        copy_tree("./MapApplication", self.output_directory + "/" + self.application_name)
         create_folder_if_not_exists(self.output_directory + "/private")
         create_folder_if_not_exists(self.output_directory + "/private/scss")
         create_folder_if_not_exists(self.output_directory + "/private/scss/" + self.application_name)
-        copy("private/scss/FlaskBase/_material-announcement.scss", self.output_directory + "/private/scss/" + self.application_name)
+        copy("private/scss/MapApplication/_material-announcement.scss", self.output_directory + "/private/scss/" + self.application_name)
         copy_tree("./private/external", self.output_directory + "/private/external")
         self.create_scss_file(self.output_directory + "/private/scss/" + self.application_name.lower() + ".scss")
         for file in os.listdir("tests"):
             with open(os.path.join("tests", file), "r", encoding="utf-8") as infile:
                 data = infile.read()
-                data = data.replace("FlaskBase", self.application_name)
+                data = data.replace("MapApplication", self.application_name)
                 with open(self.output_directory + "/tests/" + file, "w", encoding="utf-8") as outfile:
                     outfile.write(data)
         for file in [f for f in os.listdir(".") if os.path.isfile(os.path.join(".", f))]:
@@ -95,7 +95,7 @@ class ProjectBuilder(object):
             with open(file, "r", encoding="utf-8") as infile:
                 print("Parsing file: %s", file)
                 data = infile.read()
-                data = data.replace("FlaskBase", self.application_name)
+                data = data.replace("MapApplication", self.application_name)
                 with open(os.path.join(self.output_directory, file), "w", encoding="utf-8") as outfile:
                     outfile.write(data)
 

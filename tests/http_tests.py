@@ -43,7 +43,7 @@ def _hash(data, algorithm):
 
 
 class CommonHttpTestCases(unittest.TestCase):
-    """FlaskBase functionality and base http tests"""
+    """FlaskBase flask functionality and base http tests"""
 
     def setUp(self):
         FlaskBase.app.debug = True
@@ -79,7 +79,7 @@ class CommonHttpTestCases(unittest.TestCase):
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(data['args'], {})
         self.assertEqual(data['headers']['Host'], 'localhost')
-        #self.assertEqual(data['headers']['Content-Type'], '') #TODO: FIX THIS
+#        self.assertEqual(data['headers']['Content-Type'], '')
         self.assertEqual(data['headers']['Content-Length'], '0')
         self.assertEqual(data['headers']['User-Agent'], 'test')
         # self.assertEqual(data['origin'], None)
@@ -94,7 +94,7 @@ class CommonHttpTestCases(unittest.TestCase):
         data = json.loads(response.data.decode('utf-8'))
         self.assertEqual(data['args'], {})
         self.assertEqual(data['headers']['Host'], 'localhost')
-        #self.assertEqual(data['headers']['Content-Type'], '') # TODO: FIX THIS
+  #      self.assertEqual(data['headers']['Content-Type'], '')
         self.assertEqual(data['headers']['Content-Length'], '0')
         self.assertEqual(data['url'], 'http://localhost/anything/foo/bar')
         self.assertEqual(data['method'], 'GET')
@@ -200,6 +200,47 @@ class CommonHttpTestCases(unittest.TestCase):
         response = self.app.get('/brotli')
         self.assertEqual(response.status_code, 200)
 
+    #def test_digest_auth_with_wrong_password(self):
+    #    auth_header = 'Digest username="user",realm="wrong",nonce="wrong",uri="/digest-auth/user/passwd/MD5",response="wrong",opaque="wrong"'
+    #    response = self.app.get(
+     #       '/digest-auth/auth/user/passwd/MD5',
+     #       environ_base={
+     #           'REMOTE_ADDR': '127.0.0.1',
+     #       },
+     #       headers={
+     #           'Authorization': auth_header,
+     #       }
+     #   )
+     #   self.assertTrue('Digest' in response.headers.get('WWW-Authenticate'))
+     #   self.assertEqual(response.status_code, 401)
+
+#    def test_digest_auth(self):
+        """Test different combinations of digest auth parameters"""
+#        username = 'user'
+#        password = 'passwd'
+#        for qop in None, 'auth', 'auth-int',:
+#            for algorithm in None, 'MD5', 'SHA-256':
+#                for body in None, b'', b'request payload':
+#                    for stale_after in (None, 1, 4) if algorithm else (None,):
+#                        self._test_digest_auth(username, password, qop, algorithm, body, stale_after)
+
+    """"def _test_digest_auth(self, username, password, qop, algorithm=None, body=None, stale_after=None):
+        uri = self._digest_auth_create_uri(username, password, qop, algorithm, stale_after)
+
+        unauthorized_response = self._test_digest_auth_first_challenge(uri)
+
+        header = unauthorized_response.headers.get('WWW-Authenticate')
+
+        authorized_response, nonce = self._test_digest_response_for_auth_request(header, username, password, qop, uri,
+                                                                                 body)
+        self.assertEqual(authorized_response.status_code, 200)
+
+        if None == stale_after:
+            return
+
+        # test stale after scenerio
+        self._digest_auth_stale_after_check(header, username, password, uri, body, qop, stale_after)"""
+
     def _test_digest_auth_first_challenge(self, uri):
         unauthorized_response = self.app.get(
             uri,
@@ -232,15 +273,14 @@ class CommonHttpTestCases(unittest.TestCase):
         header = stale_response.headers.get('WWW-Authenticate')
         self.assertIn('stale=TRUE', header)
 
-        #    def test_digest_auth_wrong_pass(self):
+#    def test_digest_auth_wrong_pass(self):
         """Test different combinations of digest auth parameters"""
-
-    #        username = 'user'
-    #        password = 'passwd'
-    #        for qop in None, 'auth', 'auth-int',:
-    #            for algorithm in None, 'MD5', 'SHA-256':
-    #                for body in None, b'', b'request payload':
-    #                    self._test_digest_auth_wrong_pass(username, password, qop, algorithm, body, 3)
+#        username = 'user'
+#        password = 'passwd'
+#        for qop in None, 'auth', 'auth-int',:
+#            for algorithm in None, 'MD5', 'SHA-256':
+#                for body in None, b'', b'request payload':
+#                    self._test_digest_auth_wrong_pass(username, password, qop, algorithm, body, 3)
 
     def _test_digest_auth_wrong_pass(self, username, password, qop, algorithm=None, body=None, stale_after=None):
         uri = self._digest_auth_create_uri(username, password, qop, algorithm, stale_after)
@@ -479,18 +519,19 @@ class CommonHttpTestCases(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 416)
 
-    #    def test_tracking_disabled(self):
-    #        with _setenv('tracking_enabled', None):
-    #            response = self.app.get('/')
-    #        data = response.data.decode('utf-8')
-    #        self.assertNotIn('google-analytics', data)
-    #        self.assertNotIn('perfectaudience', data)
 
-    #    def test_tracking_enabled(self):
-    #        with _setenv('tracking_enabled', '1'):
-    #            response = self.app.get('/')
-    #        data = response.data.decode('utf-8')
-    #        self.assertIn('perfectaudience', data)
+#    def test_tracking_disabled(self):
+#        with _setenv('tracking_enabled', None):
+#            response = self.app.get('/')
+#        data = response.data.decode('utf-8')
+#        self.assertNotIn('google-analytics', data)
+#        self.assertNotIn('perfectaudience', data)
+
+#    def test_tracking_enabled(self):
+#        with _setenv('tracking_enabled', '1'):
+#            response = self.app.get('/')
+#        data = response.data.decode('utf-8')
+#        self.assertIn('perfectaudience', data)
 
     def test_etag_if_none_match_matches(self):
         response = self.app.get(
@@ -561,7 +602,6 @@ class CommonHttpTestCases(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers.get('ETag'), 'abc')
-
 
 if __name__ == '__main__':
     unittest.main()

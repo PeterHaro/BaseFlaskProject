@@ -12,6 +12,7 @@ from expand import Expander
 
 debug = True
 
+# SUper hacky shit file
 
 def build_argument_parser():
     _parser = argparse.ArgumentParser(
@@ -91,6 +92,8 @@ class ProjectBuilder(object):
             if file == "configuration.json":
                 with open(os.path.join(self.output_directory, file), "w", encoding="utf-8") as out_config:
                     out_config.write(json.dumps(self.configuration_file))
+                continue
+            if file == "CreateFlaskProject.py":
                 continue
             with open(file, "r", encoding="utf-8") as infile:
                 print("Parsing file: %s", file)
